@@ -1,11 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.models.schemas import ChatRequest, CVRequest, JobRequest
+from app.model.schemas import ChatRequest, CVRequest, JobRequest
+
 from app.services.chat_service import ask_ai
 from app.services.cv_service import analyze_cv
 from app.services.job_service import recommend_jobs
 
 app = FastAPI(title="Job IA Service")
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,6 +22,7 @@ def chat(req: ChatRequest):
 
 @app.post("/api/analyze-cv")
 def analyze(req: CVRequest):
+    
     return analyze_cv(req.text)
 
 @app.post("/api/recommend-jobs")
